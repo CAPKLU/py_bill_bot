@@ -155,6 +155,7 @@ class SendMailDealer:
         if usettls:
             self.mailServer.starttls()
         self.mailServer.ehlo()
+        self.mailServer.starttls() #live.com报错增加tsarttls支持
         self.mailServer.login(self.mailUser, self.mailPassword)
         self.msg = MIMEMultipart()
 

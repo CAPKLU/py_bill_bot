@@ -11,7 +11,8 @@ def main():
     mm = mail_dispatcher.mail_dispatcher("./pbb.conf")
     atta = mm.doit()
     if atta:
-        parser.icbc_Ecard(atta)
+        atta = parser.icbc_Ecard(atta)
+        mm.sendit(atta)
     sys.exit(0)
 
 

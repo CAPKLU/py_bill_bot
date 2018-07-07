@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import re
 import csv
 import sys
-
+import codecs
 datail3 = r'busi-other_detail\.tab3-one[\s\S]*busi-other_detail\.tab3-one'
 # 截取e时代卡明细的正则表达式
 
@@ -26,15 +26,19 @@ def icbc_Ecard(input_name):
 #            temp_ = re.sub(r'^\+', "", temp_)
             string.append(temp_.encode('utf-8'))
         rows.append(string)
-    output_csv(rows, re.sub(r'\.html$', "", input_name))
+    output_name = output_csv(rows, re.sub(r'\.html$', "", input_name))
     f.close()
+
+    return output_name
 
 
 def output_csv(rows, output_name, flag='a'):
     with open(output_name+'.csv', flag) as csv_file:
+        csv_file.write(codecs.BOM_UTF8)
         writer = csv.writer(csv_file)
         writer.writerows(rows)
     csv_file.close()
+    return output_name+'.csv'
 
 
 if __name__ == "__parser__":
